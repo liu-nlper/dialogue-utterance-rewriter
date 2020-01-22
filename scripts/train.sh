@@ -1,5 +1,3 @@
-source /home/cog11/jxliu6/.bashrc
-
 cd ..
 
 PARAM_SET=tiny
