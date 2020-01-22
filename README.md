@@ -99,6 +99,14 @@ ACL 2019论文复现，多轮对话重写：[Improving Multi-turn Dialogue Model
 
 ### 2.2 测试
 
+修改`./scripts/translate.sh`：
+
+    PARAM_SET：与训练阶段保持一致；
+    MODEL_DIR：模型路径，与训练阶段保持一致；
+    VOCAB_FILE：词表文件，与训练阶段保持一致；
+    FILE：待预测文件，格式同开发集；
+    FILE_OUT：预测结果存放路径。
+
 训练过程中，程序会在`MODEL_DIR`下保存模型，可以执行下述命令生成结果：
 
     $ chmod a+x translate.sh
