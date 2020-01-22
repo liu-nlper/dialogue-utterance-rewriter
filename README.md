@@ -112,7 +112,7 @@ ACL 2019论文复现，多轮对话重写：[Improving Multi-turn Dialogue Model
     $ chmod a+x translate.sh
     $ ./translate.sh
 
-生成结果和待处理数据在同一目录，若待处理数据为`dev.txt`，则结果文件为`dev.out.txt`，每个句子占一行。
+生成结果在`FILE_OUT`。
 
 ### 2.3 评价
 
