@@ -150,3 +150,9 @@ PS: 1.8w的训练集对于L-6_H-256_A-8规模的模型来说还是太小了，�
 ## 4. Requirements
 
     tensorflow-gpu >= 1.13.0
+
+## 5. 参考
+
+1. Su, et al. [Improving Multi-turn Dialogue Modelling with Utterance ReWriter](https://www.aclweb.org/anthology/P19-1003.pdf). ACL, 2019.
+
+2. 代码：[Transformer](https://github.com/tensorflow/models/tree/master/official/transformer)
