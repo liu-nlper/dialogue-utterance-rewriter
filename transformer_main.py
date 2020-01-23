@@ -193,7 +193,8 @@ def get_train_op_and_metrics(loss, params):
     # Initialize parameters from pre-trained model
     bert_checkpoint = params["bert_checkpoint"]
     if bert_checkpoint and bert_checkpoint.lower() not in ('none', 'null'):
-      init_model_with_bert(bert_checkpoint)
+      num_hidden_layers = params["num_hidden_layers"]
+      init_model_with_bert(bert_checkpoint, num_hidden_layers)
 
     # Calculate and apply gradients using LazyAdamOptimizer.
     global_step = tf.train.get_global_step()

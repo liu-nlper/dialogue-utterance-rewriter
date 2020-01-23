@@ -37,17 +37,15 @@ def get_assignment_map_from_checkpoint(tvars, init_checkpoint):
   return (assignment_map, initialized_variable_names)
 
 
-def share_parameters(initialized_variable_names):
+def share_parameters(initialized_variable_names, num_hidden_layers):
   """
   Args:
     initialized_variable_names: list(str)
+    num_hidden_layers: int, number of layers in the encoder and decoder stacks.
 
   Returns:
     assignment_map: parameters mapping dict
   """
-  # 写入配置文件
-  num_layers = 6
-
   assignment_map = dict()
 
   # embddding layer
@@ -58,7 +56,7 @@ def share_parameters(initialized_variable_names):
   initialized_variable_names[value] = 1
   initialized_variable_names[value + ":0"] = 1
 
-  for i in range(num_layers):
+  for i in range(num_hidden_layers):
     prefix_key = 'bert/encoder/layer_{0}'.format(i)
     prefix_value = 'model/Transformer/encoder_stack/layer_{0}'.format(i)
     # q, k, v
@@ -135,15 +133,21 @@ def share_parameters(initialized_variable_names):
   return assignment_map
 
 
-def init_model_with_bert(init_checkoint):
+def init_model_with_bert(init_checkpoint, num_hidden_layers):
+  """
+  Args:
+    init_checkpoint: str, path of pre-trained model.
+    num_hidden_layers: int, number of layers in the encoder and decoder stacks.
+  """
   tvars = tf.trainable_variables()
-  if init_checkoint:
+  if init_checkpoint:
     (assignment_map, initialized_variable_names
-     ) = get_assignment_map_from_checkpoint(tvars, init_checkoint)
+     ) = get_assignment_map_from_checkpoint(tvars, init_checkpoint)
 
     # init encoder parameters with pre-trained BERT
-    assignment_map = share_parameters(initialized_variable_names)
-    tf.train.init_from_checkpoint(init_checkoint, assignment_map)
+    assignment_map = share_parameters(
+      initialized_variable_names, num_hidden_layers)
+    tf.train.init_from_checkpoint(init_checkpoint, assignment_map)
 
     tf.logging.info('**** Trainable Variables ****')
     for var in tvars:
