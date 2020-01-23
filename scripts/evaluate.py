@@ -50,11 +50,10 @@ class Metrics(object):
 
   @staticmethod
   def bleu_score(references, candidates):
-    """
-    计算bleu值
-    :param references: 实际值, list of string
-    :param candidates: 验证值, list of string
-    :return:
+    """Calculate BLEU score.
+    Args:
+      references: list(str), gold labels
+      candidates: list(str), predict labels
     """
     # 遍历计算bleu
     bleu1s = []
@@ -107,9 +106,10 @@ class Metrics(object):
 
   @staticmethod
   def rouge_score(references, candidates):
+    """Calculate ROUGE score.
+    """
     rouge = Rouge()
 
-    # 遍历计算rouge
     rouge1s = []
     rouge2s = []
     rougels = []
