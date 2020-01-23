@@ -55,11 +55,10 @@ class Metrics(object):
       references: list(str), gold labels
       candidates: list(str), predict labels
     """
-    # 遍历计算bleu
-    bleu1s = []
-    bleu2s = []
-    bleu3s = []
-    bleu4s = []
+    bleu1_list = []
+    bleu2_list = []
+    bleu3_list = []
+    bleu4_list = []
     for ref, cand in zip(references, candidates):
       ref_list = [list(ref)]
       cand_list = list(cand)
@@ -75,18 +74,16 @@ class Metrics(object):
       bleu4 = sentence_bleu(
         ref_list, cand_list, weights=(0.25, 0.25, 0.25, 0.25),
         smoothing_function=smoothing_function)
-      bleu1s.append(bleu1)
-      bleu2s.append(bleu2)
-      bleu3s.append(bleu3)
-      bleu4s.append(bleu4)
+      bleu1_list.append(bleu1)
+      bleu2_list.append(bleu2)
+      bleu3_list.append(bleu3)
+      bleu4_list.append(bleu4)
 
-    # 计算平均值
-    bleu1_average = sum(bleu1s) / len(bleu1s)
-    bleu2_average = sum(bleu2s) / len(bleu2s)
-    bleu3_average = sum(bleu3s) / len(bleu3s)
-    bleu4_average = sum(bleu4s) / len(bleu4s)
+    bleu1_average = sum(bleu1_list) / len(bleu1_list)
+    bleu2_average = sum(bleu2_list) / len(bleu2_list)
+    bleu3_average = sum(bleu3_list) / len(bleu3_list)
+    bleu4_average = sum(bleu4_list) / len(bleu4_list)
 
-    # 输出
     print("average bleus: bleu1: %.3f, bleu2: %.3f, bleu4: %.3f" % (
       bleu1_average, bleu2_average, bleu4_average))
     return (bleu1_average, bleu2_average, bleu4_average)
@@ -110,9 +107,9 @@ class Metrics(object):
     """
     rouge = Rouge()
 
-    rouge1s = []
-    rouge2s = []
-    rougels = []
+    rouge1_list = []
+    rouge2_list = []
+    rougel_list = []
     for ref, cand in zip(references, candidates):
       ref = ' '.join(list(ref))
       cand = ' '.join(list(cand))
@@ -121,14 +118,13 @@ class Metrics(object):
       rouge_2 = rouge_score[0]["rouge-2"]['f']
       rouge_l = rouge_score[0]["rouge-l"]['f']
 
-      rouge1s.append(rouge_1)
-      rouge2s.append(rouge_2)
-      rougels.append(rouge_l)
+      rouge1_list.append(rouge_1)
+      rouge2_list.append(rouge_2)
+      rougel_list.append(rouge_l)
 
-    # 计算平均值
-    rouge1_average = sum(rouge1s) / len(rouge1s)
-    rouge2_average = sum(rouge2s) / len(rouge2s)
-    rougel_average = sum(rougels) / len(rougels)
+    rouge1_average = sum(rouge1_list) / len(rouge1_list)
+    rouge2_average = sum(rouge2_list) / len(rouge2_list)
+    rougel_average = sum(rougel_list) / len(rougel_list)
 
     print("average rouges, rouge_1: %.3f, rouge_2: %.3f, rouge_l: %.3f" \
           % (rouge1_average, rouge2_average, rougel_average))
